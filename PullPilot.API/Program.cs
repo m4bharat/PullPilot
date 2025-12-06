@@ -14,23 +14,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-            app.MapPost("/api/webhook/github", async (
-                HttpRequest request,
-                IGitHubService githubService) =>
-            {
-                string body;
-                using (var reader = new StreamReader(request.Body))
-                    body = await reader.ReadToEndAsync();
+app.MapPost("/api/webhook/github", async (
+    HttpRequest request,
+    IGitHubService githubService) =>
+{
+    string body;
+    using (var reader = new StreamReader(request.Body))
+        body = await reader.ReadToEndAsync();
 
-                var signature = request.Headers["X-Hub-Signature-256"].ToString();
+    var signature = request.Headers["X-Hub-Signature-256"].ToString();
 
-                var valid = await githubService.ValidateWebhookSignatureAsync(body, signature);
-                if (!valid)
-                    return Results.Unauthorized();
+    var valid = await githubService.ValidateWebhookSignatureAsync(body, signature);
+    if (!valid)
+        return Results.Unauthorized();
 
-                await githubService.ProcessPullRequestAsync(body);
-                return Results.Ok();
-            });
+    await githubService.ProcessPullRequestAsync(body);
+    return Results.Ok();
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -38,7 +39,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Remove or comment out HTTPS redirection
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
