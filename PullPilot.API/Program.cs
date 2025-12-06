@@ -32,6 +32,8 @@ app.MapPost("/api/webhook/github", async (
     return Results.Ok();
 });
 
+app.MapGet("/", () => "Welcome to PullPilot API!");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
