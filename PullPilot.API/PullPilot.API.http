@@ -1,0 +1,6 @@
+@PullPilot.API_HostAddress = http://localhost:5224
+
+GET {{PullPilot.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
