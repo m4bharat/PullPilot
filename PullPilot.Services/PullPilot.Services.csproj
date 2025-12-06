@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PullPilot.Domain\PullPilot.Domain.csproj" />
+    <ProjectReference Include="..\PullPilot.Interface\PullPilot.Interface.csproj" />
+  </ItemGroup>
+
 </Project>
